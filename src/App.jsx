@@ -25,6 +25,9 @@ function App() {
           <input type="text"
           value={password}
           readOnly />
+          <button
+            onClick={() => navigator.clipboard.writeText(password)}
+            className="bg-gray-800 text-white p-2"  ></button>
 
         </div>
       </div>
