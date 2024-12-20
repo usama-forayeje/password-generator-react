@@ -75,7 +75,7 @@ function App() {
         {/* Options for password customization in one row */}
         <div className="flex items-center justify-between gap-4">
           {/* Password length slider */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 ">
             <label htmlFor="length" className="text-sm font-semibold">Length: {length}</label>
             <input
               id="length"
@@ -84,30 +84,32 @@ function App() {
               max={100}
               value={length}
               onChange={(e) => setLength(parseInt(e.target.value, 10))}
-              className="w-32"
+              className="w-32 cursor-pointer"
             />
           </div>
 
           {/* Include numbers checkbox */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 ">
             <input
+              id="numbers"
               type="checkbox"
               checked={number}
               onChange={() => setNumber((prev) => !prev)}
-              className=""
+              className="cursor-pointer"
             />
-            <label className="text-sm font-semibold">Numbers</label>
+            <label htmlFor="numbers" className="text-sm  cursor-pointer font-semibold">Numbers</label>
           </div>
 
           {/* Include special characters checkbox */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 cursor-pointer">
             <input
+              id="characters"
               type="checkbox"
               checked={chartAllowed}
               onChange={() => setChartAllowed((prev) => !prev)}
-              className=""
+              className="cursor-pointer"
             />
-            <label className="text-sm font-semibold">Characters</label>
+            <label htmlFor="characters" className="text-sm cursor-pointer font-semibold">Characters</label>
           </div>
         </div>
       </div>
