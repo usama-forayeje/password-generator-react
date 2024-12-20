@@ -6,6 +6,8 @@ function App() {
   const [number, setNumber] = useState(false); // Include numbers or not
   const [chartAllowed, setChartAllowed] = useState(false); // Include special characters or not
   const [password, setPassword] = useState(""); // Generated password
+  const [copied, setCopied] = useState(false); // Tracks copy animation
+
   const passwordRef = useRef(null);
 
   // Function to generate the password based on selected options
@@ -38,7 +40,8 @@ function App() {
       passwordRef.current.select();
       passwordRef.current.setSelectionRange(0, 9999); // Select the password text
       navigator.clipboard.writeText(passwordRef.current.value);
-      alert("Password copied to clipboard!"); // Show alert
+      setCopied(true); // Trigger copy animation
+      setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
     }
   }, []);
 
@@ -51,7 +54,7 @@ function App() {
 
         {/* Password display and copy button */}
         <div className="mb-4">
-          <div className="flex items-center justify-between bg-gray-100 rounded-md p-2 shadow">
+          <div className="flex items-center justify-between bg-gray-100 rounded-md p-2 shadow relative">
             <input
               type="text"
               value={password}
@@ -62,9 +65,9 @@ function App() {
             />
             <button
               onClick={handleCopy}
-              className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-1 ml-2 transition-transform transform hover:scale-105"
+              className={`bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-1 ml-2 transition-transform transform hover:scale-105 ${copied ? 'bg-green-500 scale-105' : ''}`}
             >
-              Copy
+              {copied ? "Copied!" : "Copy"}
             </button>
           </div>
         </div>
@@ -72,7 +75,7 @@ function App() {
         {/* Options for password customization in one row */}
         <div className="flex items-center justify-between gap-4">
           {/* Password length slider */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <label htmlFor="length" className="text-sm font-semibold">Length: {length}</label>
             <input
               id="length"
@@ -86,7 +89,7 @@ function App() {
           </div>
 
           {/* Include numbers checkbox */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <input
               type="checkbox"
               checked={number}
@@ -97,14 +100,14 @@ function App() {
           </div>
 
           {/* Include special characters checkbox */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <input
               type="checkbox"
               checked={chartAllowed}
               onChange={() => setChartAllowed((prev) => !prev)}
               className=""
             />
-            <label className="text-sm font-semibold">Special Characters</label>
+            <label className="text-sm font-semibold">Characters</label>
           </div>
         </div>
       </div>
